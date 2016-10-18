@@ -1,0 +1,113 @@
+<!DOCtype html>
+
+<html ng-app="app">
+
+<head>
+  <title>AngularJS + Bootstrap template</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-rc.0/angular.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+  <!-- angular router  -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
+
+  <!-- angular ui utils -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-utils/0.1.1/angular-ui-utils.min.js"></script> -->
+
+  <!-- ngstorage -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.js"></script>
+
+  <!-- ng-dialog -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.5.6/js/ngDialog.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.5.6/css/ngDialog.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.5.6/css/ngDialog-theme-default.css">
+
+  <!-- ng-file-upload -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/11.2.1/ng-file-upload-all.js"></script>
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.1.0/ui-bootstrap-tpls.js"></script>
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+  <!-- angular toastr -->
+  <script src="https://npmcdn.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
+  <link rel="stylesheet" href="https://npmcdn.com/angular-toastr/dist/angular-toastr.css" />
+
+  <!-- google maps API -->
+   <script src="http://maps.googleapis.com/maps/api/js"></script>
+
+  <!-- <script src="style.css"></script> -->
+  <link rel="stylesheet" href="style.css">
+  <script src="app.module.js"></script>
+  <script src="services/apiinterceptor.service.js"></script>
+  <script src="app.config.js"></script>
+  <script src="app.run.js"></script>
+  <script src="app.js"></script>
+  <script src="services/dbconnect.service.js"></script>
+  <script src="services/config.service.js"></script>
+  <script src="services/userinit.service.js"></script>
+  <script src="components/loginscreen/login.directive.js"></script>
+  <script src="components/editprofile/editprofile.directive.js"></script>
+  <script src="components/adminpanel/admin.directive.js"></script>
+  <script src="components/adminpanel/updateuser.directive.js"></script>
+  <script src="components/homescreen/home.directive.js"></script>
+  <script src="components/bsactivelink/bsactivelink.directive.js"></script>
+  <script src="components/mapwithmarkers/map.directive.js"></script>
+  <script src="components/searchuser/searchuser.directive.js"></script>
+  <script src="components/searchuser/founduser.directive.js"></script>
+</head>
+
+<body ng-controller="MainCtrl">
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" ui-sref="home">EdServer</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav" bs-active-link>
+          <li><a ui-sref="home" ng-show="loggedIn"><i class="fa fa-home"></i> Home <span class="sr-only">(current)</span></a></li>
+          <li><a ui-sref="editprofile" ng-show="loggedIn"><i class="fa fa-cog"></i> Edit Profile <span class="sr-only">(current)</span></a></li>
+        </ul>
+        <form class="navbar-form navbar-left" ng-show="loggedIn" role="search" ng-submit="searchUser()">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search user" ng-model="$root.findName">
+          </div>
+          <button type="submit" class="btn btn-default">Search</button>
+        </form>
+
+
+        <ul class="nav navbar-nav navbar-right" bs-active-link>
+          <li><a ui-sref="login" ng-hide="loggedIn"><i class="fa fa-home"></i> Login <span class="sr-only">(current)</span></a></li>
+          <!-- <li ><a ui-route href="#" ui-href="/login">Login <span class="sr-only">(current)</span></a></li> -->
+          <li><a ui-sref="admin" ng-show="isAdmin"><i class="fa fa-lock"></i> Admin <span class="sr-only">(current)</span></a></li>
+          <!-- <li ><a ui-route href="" ui-href="/admin" ng-show="isAdmin">Admin <span class="sr-only">(current)</span></a></li> -->
+          <li><a href="" ng-click="signOutUser()"><i class="fa fa-close"></i> Sign out</a></li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+  </nav>
+  <div class="ui-view"></div>
+
+  <!-- <div class="btn btn-default" ng-click="checkUserRole()">Click to verify</div> -->
+  <span>{{verified}}</span>
+</body>
+
+</html>

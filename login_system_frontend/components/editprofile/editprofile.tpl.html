@@ -1,0 +1,80 @@
+<div class="container">
+  <div class="row">
+
+    <form name="profilePicture">
+      <fieldset>
+        <legend>Update profile picture</legend>
+        <!-- Username:
+        <input type="text" name="userName" ng-model="username" size="31" required>
+        <i ng-show="myForm.userName.$error.required">*required</i> -->
+        <br>Profile pic:
+        <br>
+        <img ng-src="{{$root.avatarUrl}}" class="profile_pic" ng-hide="picFile">
+        <img ng-show="profilePicture.file.$valid" ngf-thumbnail="picFile" class="thumb profile_pic">
+        <button ng-click="picFile = null" ng-show="picFile">Remove</button>
+        <br>
+        <input type="file" ngf-select ng-model="picFile" name="file" accept="image/*" ngf-max-size="2MB" required ngf-model-invalid="errorFiles">
+        <i ng-show="profilePicture.file.$error.required">*required</i>
+        <br>
+        <i ng-show="profilePicture.file.$error.maxSize">File too large
+            {{errorFiles[0].size / 1000000|number:1}}MB: max 2M</i>
+        <button ng-disabled="!profilePicture.$valid" ng-click="uploadPic(picFile)">Upload</button>
+        <span class="progress" ng-show="picFile.progress >= 0">
+          <div style="width:{{picFile.progress}}%" ng-bind="picFile.progress + '%'"></div>
+        </span>
+        <span ng-show="picFile.result">Upload Successful</span>
+        <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+      </fieldset>
+      <br>
+    </form>
+    <form name="profileData" ng-submit="updateUserData()">
+      <table class="borderless">
+        <tr>
+          <td>
+            Name:
+          </td>
+          <td>
+            <input type="text" name="name" ng-model="currName" required>
+            <i ng-show="profileData.name.$error.required">*required</i>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Address:
+          </td>
+          <td>
+            <input type="text" name="address" ng-model="currAddress" required>
+            <i ng-show="profileData.address.$error.required">*required</i>
+          </td>
+
+        </tr>
+
+        <tr>
+          <td>
+            City:
+          </td>
+          <td>
+            <input type="text" name="city" ng-model="currCity" required>
+            <i ng-show="profileData.city.$error.required">*required</i>
+        </tr>
+        </td>
+        <tr>
+          <td>
+            Zipcode:
+          </td>
+          <td>
+            <input type="text" name="zipcode" ng-model="currZipcode" required>
+            <i ng-show="profileData.zipcode.$error.required">*required</i>
+        </tr>
+        </td>
+        <tr>
+          <td>
+            <br>
+            <input type="submit" value="Submit">
+          </td>
+        </tr>
+      </table>
+    </form>
+
+  </div>
+</div>

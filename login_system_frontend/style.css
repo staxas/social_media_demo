@@ -1,0 +1,18 @@
+body { padding-top: 70px; }
+
+a {
+  cursor: pointer;
+}
+
+.profile_pic {
+  width: 100px;
+  height: 100px;
+}
+
+table.borderless td, table.borderless th {
+  border: none !important;
+}
+
+.table {
+  table-layout: fixed;
+}

@@ -1,0 +1,12 @@
+<tr>
+<td>
+  {{user.name}}
+</td>
+  <td>
+    {{user.city}}
+  </td>
+  <td>
+    <div class="btn btn-default" ng-show="followable" ng-click="follow()">Follow</div>
+    <div class="btn btn-default" ng-hide="followable" ng-click="unfollow()">Unfollow</div>
+  </td>
+</tr>

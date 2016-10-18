@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+    <table class="table borderless">
+    <tr>
+      <td>
+    <img class="profile_pic" src="{{$root.avatarUrl}}" alt="">
+    </td>
+    </tr>
+    <tr><td>Name:</td><td>{{$root.userData.name}}</td></tr>
+    <tr><td>Address:</td><td>{{$root.userData.address}}</td></tr>
+    <tr><td>City:</td><td>{{$root.userData.city}}</td></tr>
+    <tr><td>Zipcode:</td><td>{{$root.userData.zipcode}}</td></tr>
+    </table>
+    <map-with-markers mapid="mapid1" ng-if="$root.userData.zipcode" lat="$root.userData.lat" lng="$root.userData.lng" places="people" height="300px"></map-with-markers>
+    </div>
+  </div>
+</div>
